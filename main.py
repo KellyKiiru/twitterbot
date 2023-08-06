@@ -1,17 +1,32 @@
 import tweepy
+import os
+from dotenv import load_dotenv
 
-all_keys = open("env", "r").read().splitlines()
+load_dotenv()
 
-API_KEY=all_keys[0]
-API_KEY_SECRET=all_keys[1]
-ACCESS_TOKEN=all_keys[2]
-ACCESS_TOKEN_SECRET=all_keys[3]
+API_KEY=os.environ["API_KEY"]
+API_KEY_SECRET=os.environ["API_KEY_SECRET"]
+ACCESS_TOKEN=os.environ["ACCESS_TOKEN"]
+ACCESS_TOKEN_SECRET=os.environ["ACCESS_TOKEN_SECRET"]
 
 authenticator = tweepy.OAuthHandler(API_KEY,API_KEY_SECRET)
 
 authenticator.set_access_token(ACCESS_TOKEN,ACCESS_TOKEN_SECRET)
 
-api = tweepy.api(authenticator, wait_on_rate_limit=True)
+api = tweepy.API(authenticator)
+
+# api.create_friendship("novicetopro254")
 
 
-  
+# followers = api.get_followers()
+
+# api.update_status("C# is a god tbh")
+
+try:
+    api.verify_credentials()
+    print("It's working alright")
+except:
+    print("Figure it out")
+ 
+
+print(f"")
